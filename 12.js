@@ -1,5 +1,4 @@
 
-// об'єкт об'єктів з параметрами бургера
 var orderHamburger = {
     SIZE_SMALL: {param: "SIZE_SMALL", price: 50, calorie: 20},
     SIZE_LARGE: {param: "SIZE_LARGE", price: 100, calorie: 40},
@@ -10,10 +9,8 @@ var orderHamburger = {
     TOPPING_SPICE: {param: "TOPPING_SPICE", price: 15, calorie: 0}
 };
 
-// функція перевіряє на наявність 2 обов'язкових параметрів
 function Hamburger(size, stuffing) {
     if(!!size.param && !!stuffing.param) {
-        //параметри передаютья функції що опреділяє парметри
         return this.init(size, stuffing)
     } else {
         console.log('not enough arguments')
@@ -28,9 +25,7 @@ Hamburger.prototype.init = function(size, stuffing) {
     }
 }
 
-//добавка необовязкового параметру
 Hamburger.prototype.addSouce = function(souce) {
-    // добавляє соус в масив параметрів
     let plusSouce = this.params.souce
     var souceIs = 0;
 
@@ -40,7 +35,6 @@ Hamburger.prototype.addSouce = function(souce) {
             }
         }
         if (!souceIs) {
-            //якщо немає добавляєм в масив
             plusSouce.push(souce);
         } else {
             console.log("souce already is")
@@ -73,8 +67,13 @@ Hamburger.prototype.calculatePrice = function () {
     let totalPrice
     let sizePrice = this.params.size.price
     let stuffingPrice = this.params.stuffing.price
+    let soucePrice = 0
 
-    totalPrice = sizePrice + stuffingPrice
+    for (var i = 0; i < this.params.souce?.length; i++) {
+        soucePrice += this.params.souce[i]?.price;
+    }
+
+    totalPrice = sizePrice + stuffingPrice + soucePrice 
     return totalPrice
 }
 
@@ -87,22 +86,21 @@ Hamburger.prototype.calculateCalories = function () {
     return totalCalories
 }
 
-var hamburger = new Hamburger(orderHamburger.SIZE_SMALL, orderHamburger.STUFFING_CHEESE);
-// добавка из майонеза
+// var hamburger = new Hamburger(orderHamburger.SIZE_SMALL, orderHamburger.STUFFING_CHEESE);
+// // добавка из майонеза
+// hamburger.addSouce(orderHamburger.TOPPING_MAYO);
+// // спросим сколько там калорий
+// console.log("Calories: %f", hamburger.calculateCalories());
+
+var h2 = new Hamburger(); // => HamburgerException: no size given
+
+// передаем некорректные значения, добавку вместо размера
+var h3 = new Hamburger(orderHamburger.TOPPING_SPICE, orderHamburger.TOPPING_SPICE); 
+// => HamburgerException: invalid size 'TOPPING_SAUCE'
+
+// добавляем много добавок
+var h4 = new Hamburger(orderHamburger.SIZE_SMALL, orderHamburger.STUFFING_CHEESE);
 hamburger.addSouce(orderHamburger.TOPPING_MAYO);
-// спросим сколько там калорий
-console.log("Calories: %f", hamburger.calculateCalories());
-// сколько стоит
-console.log("Price: %f", hamburger.calculatePrice());
-// Проверить, большой ли гамбургер? 
-console.log("Is hamburger large: %s", hamburger.getSize() === Hamburger.SIZE_LARGE); // -> false
+hamburger.addSouce(orderHamburger.TOPPING_MAYO); 
 
 
-// Убрать добавку
-hamburger.removeSouce(orderHamburger.TOPPING_MAYO);
-// console.log("Have %d toppings", hamburger.getSouce().length); // 1
-
-
-hamburger.addSouce(orderHamburger.TOPPING_SPICE);
-// А сколько теперь стоит? 
-console.log("Price with sauce: %f", hamburger.calculatePrice());
