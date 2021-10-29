@@ -1,8 +1,4 @@
 class MyString {
-    constructor(){
-
-    }
-
     reverse(string){
         let newString = ''
         for (let i = 0; i < string.length; i++){
