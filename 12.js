@@ -1,106 +1,104 @@
 
-var orderHamburger = {
-    SIZE_SMALL: {param: "SIZE_SMALL", price: 50, calorie: 20},
-    SIZE_LARGE: {param: "SIZE_LARGE", price: 100, calorie: 40},
-    STUFFING_CHEESE: {param: "STUFFING_CHEESE", price: 10, calorie: 20},
-    STUFFING_SALAD: {param: "STUFFING_SALAD", price: 20, calorie: 5},
-    STUFFING_POTATO: {param: "STUFFING_POTATO", price: 15, calorie: 5},
-    TOPPING_MAYO: {param: "TOPPING_MAYO", price: 20, calorie: 5},
-    TOPPING_SPICE: {param: "TOPPING_SPICE", price: 15, calorie: 0}
+const STUFFING_POTATO = {type: 'STUFFING_POTATO', price: '15', calories: '10' };
+const STUFFING_SALAD = {type: 'STUFFING_SALAD', price: '20', calories: '5' };
+const STUFFING_CHEESE = {type: 'STUFFING_CHEESE', price: '10', calories: '20'};
+const TOPPING_MAYO = {type: 'TOPPING_MAYO', price: '20', calories: '5'}
+
+class Hamburger {
+    static SIZE_LARGE = { type: 'SIZE_LARGE', price: '100', calories:'40'};
+    static SIZE_SMALL = { type: 'SIZE_SMALL', price: '50', calories:'20'};
+
+    static STUFFING_POTATO = {type: 'STUFFING_POTATO', price: '15', calories: '10' };
+    static STUFFING_SALAD = {type: 'STUFFING_SALAD', price: '20', calories: '5' };
+    static STUFFING_CHEESE = {type: 'STUFFING_CHEESE', price: '10', calories: '20'};
+    
+    static TOPPING_MAYO = {type: 'TOPPING_MAYO', price: '20', calories: '5'};
+    static TOPPING_SPICE = {type: 'TOPPING_SPICE', price: '15', calories: '0'};
+
+    constructor(size, stuffing, topping) {
+        if({ type: 'SIZE_LARGE', price: '100', calories:'40'} || { type: 'SIZE_SMALL', price: '50', calories:'20'}) {
+            this.size = size
+        } else {
+            console.log('not current size')
+        }
+        if(stuffing == Hamburger.STUFFING_POTATO || stuffing == Hamburger.STUFFING_SALAD || stuffing == Hamburger.STUFFING_CHEESE) {
+            this.stuffing = stuffing
+        } else {
+            console.log('not current stuffing')
+        }
+        if(topping == Hamburger.TOPPING_MAYO || topping == Hamburger.TOPPING_SPICE) {
+            this.topping = topping
+        } 
+    }
+}
+
+Hamburger.prototype.addSouce = function(value) {
+        if (this.topping == Hamburger.TOPPING_MAYO || this.topping == Hamburger.TOPPING_SPICE) {
+            console.log('topping already exist')
+        } 
+
+        if(value == Hamburger.TOPPING_MAYO) {
+            return  this.topping = Hamburger.TOPPING_MAYO;
+        } else if (value == Hamburger.TOPPING_SPICE){
+            return this.topping = Hamburger.TOPPING_SPICE;
+        }
+
+        return this.topping = value
 };
 
-function Hamburger(size, stuffing) {
-    if(!!size.param && !!stuffing.param) {
-        return this.init(size, stuffing)
-    } else {
-        console.log('not enough arguments')
-    }
-}
+Hamburger.prototype.removeSouce = function() {
+    delete this.topping;
+};
 
-Hamburger.prototype.init = function(size, stuffing) {
-    this.params = {
-        size: size,
-        stuffing: stuffing,
-        souce: []
-    }
-}
+Hamburger.prototype.getSouce = function() {
+    return this.topping
+};
 
-Hamburger.prototype.addSouce = function(souce) {
-    let plusSouce = this.params.souce
-    var souceIs = 0;
+Hamburger.prototype.getSize = function() {
+    return this.size
+};
 
-        for (var i = 0; i < plusSouce.length; i++) {
-            if (plusSouce[i]?.param === souce.param) {
-                souceIs++;
-            }
+Hamburger.prototype.getStuffing = function() {
+    return this.stuffing
+};
+
+Hamburger.prototype.getPrice = function() {
+    try {
+        let price = 0;
+        let sizePrice = +this.size.price;
+        let stuffingPrice = +this.stuffing.price;
+        let toppingPrice;
+        try {
+            toppingPrice = +this.topping.price
+        } catch (e) {
+            toppingPrice = 0;
         }
-        if (!souceIs) {
-            plusSouce.push(souce);
-        } else {
-            console.log("souce already is")
-        }
-    };
-
-Hamburger.prototype.removeSouce = function(souce) {
-    let deleteSouse = this.params.souce;
-
-    for (var i = 0; i < deleteSouse.length; i++) {
-        if (deleteSouse[i].param === souce.param) {
-            delete deleteSouse[i];
-        }
+        return `${price = sizePrice + stuffingPrice + toppingPrice} `;
+    } catch (e) {
+        return `${e.name} \n ${e.message}`;
     }
-}
+ };
 
-Hamburger.prototype.getSouce = function(souce) {
-    return this.params.souce
-}
-
-Hamburger.prototype.getSize = function () {
-    return this.params.size.param
-}
-
-Hamburger.prototype.getCalories = function () {
-    return this.params.calories.param
-}
-
-Hamburger.prototype.calculatePrice = function () {
-    let totalPrice
-    let sizePrice = this.params.size.price
-    let stuffingPrice = this.params.stuffing.price
-    let soucePrice = 0
-
-    for (var i = 0; i < this.params.souce?.length; i++) {
-        soucePrice += this.params.souce[i]?.price;
+Hamburger.prototype.getCalories = function() {
+    try {
+        let calories = 0;
+        let sizeCalories = +this.size.calories;
+        let stuffingCalories = +this.stuffing.calories;
+        let toppingCalories;
+        try {
+            toppingCalories = +this.topping.calories
+        } catch (e) {
+            toppingCalories = 0;
+        }
+        return `${calories = sizeCalories + stuffingCalories + toppingCalories} `;
+    } catch (e) {
+        return `${e.name} \n ${e.message}`;
     }
+};
 
-    totalPrice = sizePrice + stuffingPrice + soucePrice 
-    return totalPrice
-}
+var hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE);
 
-Hamburger.prototype.calculateCalories = function () {
-    let totalCalories
-    let sizeCalories = this.params.size.calorie
-    let stuffingCalories = this.params.stuffing.calorie
-
-    totalCalories = sizeCalories + stuffingCalories
-    return totalCalories
-}
-
-// var hamburger = new Hamburger(orderHamburger.SIZE_SMALL, orderHamburger.STUFFING_CHEESE);
-// // добавка из майонеза
-// hamburger.addSouce(orderHamburger.TOPPING_MAYO);
-// // спросим сколько там калорий
-// console.log("Calories: %f", hamburger.calculateCalories());
-
-var h2 = new Hamburger(); // => HamburgerException: no size given
-
-// передаем некорректные значения, добавку вместо размера
-var h3 = new Hamburger(orderHamburger.TOPPING_SPICE, orderHamburger.TOPPING_SPICE); 
-// => HamburgerException: invalid size 'TOPPING_SAUCE'
-
-// добавляем много добавок
-var h4 = new Hamburger(orderHamburger.SIZE_SMALL, orderHamburger.STUFFING_CHEESE);
-hamburger.addSouce(orderHamburger.TOPPING_MAYO);
-hamburger.addSouce(orderHamburger.TOPPING_MAYO); 
-
-
+console.log(hamburger)
+console.log(hamburger.getPrice())
+hamburger.addSouce(Hamburger.TOPPING_MAYO);
+console.log(hamburger.getCalories())
