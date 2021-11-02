@@ -1,6 +1,7 @@
 function Nav(props) {
+    const {children} = props
     return (
-        <div>{props.children} </div>
+        <div>{children} </div>
     )
 }
 

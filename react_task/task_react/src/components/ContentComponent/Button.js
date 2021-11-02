@@ -1,8 +1,9 @@
 function Button(props) {
+    const {type, style, children} = props
     return (
         <div>
-            <button role="alert" style={props.style} type={props.type}>
-                {props.children}
+            <button role="alert" style={style} type={type}>
+                {children}
             </button>
         </div>
     )

@@ -3,8 +3,10 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Content from './components/Content';
+import TitleCreator from './components/TitleCreator';
+import Input from './components/Input';
 
-const menu = [
+export const menu = [
   {
     title: 'item1',
     link: '/item1'
@@ -31,15 +33,23 @@ function App() {
   const menuItems = menu.map((items) => <li>{items.title}</li>)
   return (
     <div className="App">
+      <TitleCreator fontSize='28px' color='red'>TitleName</TitleCreator>
+
       <Header></Header>
+
       <Nav>
         {menuItems}
       </Nav>
+
+      <Input type='password' placeholder = 'Write...' value='value'></Input>
+
       <Content>
       </Content>
+      
       <Footer>2021</Footer>
     </div>
   );
 }
 
 export default App;
+

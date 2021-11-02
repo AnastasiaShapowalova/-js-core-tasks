@@ -1,7 +1,8 @@
 function Footer(props) {
+    const {children} = props
     return (
         <div>
-             @copyright все права защищены {props.children} год.
+             @copyright все права защищены {children} год.
         </div>
     )
 }
