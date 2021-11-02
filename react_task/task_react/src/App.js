@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import Content from './components/Content';
 import TitleCreator from './components/TitleCreator';
 import Input from './components/Input';
+import Rating from './components/Rate';
+import Tag from './components/Tag';
+import Pagination from './components/Pagination';
 
 export const menu = [
   {
@@ -41,7 +44,11 @@ function App() {
         {menuItems}
       </Nav>
 
+      <Pagination countArticles='49' limit='10'/>
+
       <Input type='password' placeholder = 'Write...' value='value'></Input>
+      <Rating maxStar='4' selectedStar='3'></Rating>
+      <Tag></Tag>
 
       <Content>
       </Content>
