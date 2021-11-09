@@ -12,32 +12,36 @@
               td.style.border = '1px solid black';
               td.style.width  = '28px';
               td.style.height  = '28px';
-              td.className = 'white'
+              td.className = 'white',
+							td.id = 'td'
       }
   }
   body.appendChild(tbl);
 })()
+
 let tds = document.querySelectorAll("td");
 
 for (let i = 0; i < tds.length; i++) {
 tds[i].onclick = function (e) {
   if (e.target.style.backgroundColor !== "black") {
-    e.target.style.backgroundColor = "black";
+		e.target.classList.add('black');
+		e.target.classList.remove('white');
   } else {
-    e.target.style.backgroundColor = "white";
+		e.target.classList.add('white');
+		e.target.classList.remove('black');
   }
-};
+}
 }
 
-
-const changeColorDark = () => {
-  let invert
-  (document.getElementsByClassName('white')) ? 
- (invert = document.getElementsByClassName('white')) : (invert = document.getElementsByClassName('black'));
-
- if(invert.className !== 'black'){
-               Object.values(invert).map(item => item.className = 'black')
-         } else if(invert.className !== 'white'){
-               Object.values(invert).map(item => item.className = 'white')
-         }
+function changeColor () {
+	var cell = document.getElementsByTagName("td");
+			for (let i = 0; i < cell.length; i++) {
+				if(cell[i].className == 'white') {
+					cell[i].classList.add('black');
+					cell[i].classList.remove('white');
+				} else if(cell[i].className == 'black') {
+					cell[i].classList.add('white');
+					cell[i].classList.remove('black');
+				}
+	}
 }
