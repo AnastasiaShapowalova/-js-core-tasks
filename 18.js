@@ -12,8 +12,7 @@
               td.style.border = '1px solid black';
               td.style.width  = '28px';
               td.style.height  = '28px';
-              td.className = 'white',
-							td.id = 'td'
+              td.className = 'white'
       }
   }
   body.appendChild(tbl);
@@ -22,15 +21,16 @@
 let tds = document.querySelectorAll("td");
 
 for (let i = 0; i < tds.length; i++) {
-tds[i].onclick = function (e) {
-  if (e.target.style.backgroundColor !== "black") {
-		e.target.classList.add('black');
-		e.target.classList.remove('white');
-  } else {
-		e.target.classList.add('white');
-		e.target.classList.remove('black');
-  }
-}
+	var cell = document.getElementsByTagName("td");
+	tds[i].onclick = function (e) {
+		if(cell[i].className == 'white') {
+			cell[i].classList.add('black');
+			cell[i].classList.remove('white');
+		} else if(cell[i].className == 'black') {
+			cell[i].classList.add('white');
+			cell[i].classList.remove('black');
+		}
+	}
 }
 
 function changeColor () {
